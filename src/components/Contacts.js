@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react'
 import ContactForm from "./ContactForm";
 import firebaseDb from "../firebase";
 
@@ -9,7 +9,7 @@ const Contacts = () => {
 
     //Once components load complete
     useEffect(() => {
-        firebaseDb.child('contacts').on('value', snapshot => {
+        firebaseDb.database().ref().child('contacts').on('value', snapshot => {
             if (snapshot.val() != null) {
                 setContactObjects({
                     ...snapshot.val()
@@ -20,12 +20,36 @@ const Contacts = () => {
 
 
     const addOrEdit = (obj) => {
-      /*need to implement both insert
-      and update operation*/
+        if (currentId == '')
+            firebaseDb.database().ref().child('contacts').push(
+                obj,
+                err => {
+                    if (err)
+                        console.log(err)
+                    else
+                        setCurrentId('')
+                })
+        else
+            firebaseDb.database().ref().child(`contacts/${currentId}`).set(
+                obj,
+                err => {
+                    if (err)
+                        console.log(err)
+                    else
+                        setCurrentId('')
+                })
     }
 
     const onDelete = id => {
-        // record with given id is to be deleted.
+        if (window.confirm('Are you sure to delete this record?')) {
+            firebaseDb.database().ref().child(`contacts/${id}`).remove(
+                err => {
+                    if (err)
+                        console.log(err)
+                    else
+                        setCurrentId('')
+                })
+        }
     }
  
   
@@ -33,7 +57,7 @@ const Contacts = () => {
         <>
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
-                    <h1 className="display-4 text-center">Contact Manager</h1>
+                    <h1 className="display-4 text-center">Contactos </h1>
                 </div>
             </div>
             <div className="row">
@@ -72,6 +96,7 @@ const Contacts = () => {
                     </table>
                 </div>
             </div>
+            <footer>  @AndresOgando  </footer>
         </>
     );
 }

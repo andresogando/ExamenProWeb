@@ -4,6 +4,8 @@ Andres Ogando 2017-5760, CRUD para contactos creado en ReactJS utilizando, Boots
 
 ## Guia 
 
+Landing Page: Para Crear usuario insertar su email y clave y dar al boton Sign Up, Este lo llevara a la siguiente pagina, En caso de ya tener un usuario solo debe insertarlos y click en Login. :)
+
 src > firebase.js  [  Configuraciones de la base de datos ]
 
 src > Components > ContactForm [ Formulario para la manipulacion de contactos ]

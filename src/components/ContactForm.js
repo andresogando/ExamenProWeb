@@ -12,7 +12,7 @@ const ContactForm = (props) => {
 
 
     useEffect(() => {
-        if (props.currentId == '')
+        if (props.currentId === '')
             setValues({ ...initialFieldValues })
         else
             setValues({
@@ -72,7 +72,6 @@ const ContactForm = (props) => {
                 </div>
             </div>
             <div className="form-group">
-            /*instead of this input use textarea - issue with my syntax highlighter */
                <input className="form-control" name="address" placeholder="Address"
                     value={values.address}
                     onChange={handleInputChange}
